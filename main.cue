@@ -1,4 +1,4 @@
-package daggerapp
+package app
 
 import (
   "dagger.io/dagger"
@@ -11,7 +11,12 @@ dagger.#Plan & {
       DH_CREDS_USR: string
       DH_CREDS_PSW: dagger.#Secret
     }
+
+    filesystem: ".": read: contents: dagger.#FS
   }
+
+  
+
   actions: versions: {
 
     "latest": _
@@ -24,6 +29,25 @@ dagger.#Plan & {
         steps: [
           docker.#Pull & {
             source: "alpine:\(tag)"
+          },
+          
+          docker.#Copy & {
+            contents: client.filesystem.".".read.contents
+            source: "index.html"
+            dest: "/var/www/html/"
+          },
+
+          docker.#Copy & {
+            contents: client.filesystem.".".read.contents
+            source: "default.conf"
+            dest: "/etc/nginx/conf.d/"
+          },
+
+          docker.#Set & {
+            config: {
+              expose: ["80"]:{} 
+              cmd: ["nginx","-g","daemon off;"]
+            }
           },
         ]      
       }

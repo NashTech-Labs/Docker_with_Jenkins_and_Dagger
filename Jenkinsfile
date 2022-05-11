@@ -16,7 +16,13 @@ pipeline {
     stage("Image creation and Push") {
       // --log-format=plain flag provides the simple output on the command line 
       steps {
-        sh 'dagger do push --log-format=plain'
+        sh 'dagger do versions --log-format=plain'
+
+        // if wanted individual versions can be built and published
+        // dagger do versions 3
+
+        // to trigger individual task like build of image
+        // dagger do versions 3 build
       }
     }    
   }

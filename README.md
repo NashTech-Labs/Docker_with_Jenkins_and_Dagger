@@ -22,6 +22,12 @@ This template uses dagger and jenkins to create a CI pipeline to build and push 
 * Now build your job
 
 *************************************************************************************************************
-##### Recommendation: You can Add more to it like webhooks multibranch many more 
+### Recommendation: 
+
+The whole code is directly made using the dagger and docker module imported. You can explore these modules to understand the code more.
+For example, the configuration of the image is under docker.#Set where every variable used is defined. these are based on OCI and can be referenced from following:
+
+https://github.com/opencontainers/image-spec/blob/main/config.md
+
 ## Thank You!
 *************************************************************************************************************
